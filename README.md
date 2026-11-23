@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPLAST – Mengubah Sampah Plastik Menjadi Furnitur Bernilai Ekonomi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            900: '#065f46',
+                        },
+                        sand: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                        },
+                        terracotta: {
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom pattern & subtle animations */
+        .terrazzo-bg {
+            background-color: #fafaf9;
+            background-image: radial-gradient(#10b981 0.75px, transparent 0.75px), radial-gradient(#d97706 0.75px, #fafaf9 0.75px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar for clean tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-slate-800 font-sans antialiased selection:bg-emerald-200 selection:text-emerald-900 flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group focus:outline-none">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center text-white shadow-md group-hover:bg-emerald-700 transition">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+                            <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+                            <path d="m14 16-3 3 3 3"/>
+                            <path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+                            <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+                            <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-xl tracking-tight text-emerald-950 block leading-none">REPLAST</span>
+                        <span class="text-[11px] font-medium text-emerald-700 tracking-wider uppercase">Circular Furniture</span>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2" id="desktop-nav">
+                    <button data-page="home" onclick="navigateTo('home')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">Home</button>
+                    <button data-page="news" onclick="navigateTo('news')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">News</button>
+                    <button data-page="product" onclick="navigateTo('product')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">Product</button>
+                    <button data-page="about" onclick="navigateTo('about')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">About Us</button>
+                    <button data-page="management" onclick="navigateTo('management')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">Management</button>
+                    <button data-page="contact" onclick="navigateTo('contact')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold transition">Contact Us</button>
+                </nav>
+
+                <!-- Action Buttons (Cart/Pickup Drawer + Mobile Menu) -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="toggleDrawer()" class="relative inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-semibold text-sm border border-emerald-200 transition">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 text-emerald-700"></i>
+                        <span class="hidden sm:inline">Aktivitas</span>
+                        <span id="cart-badge" class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white bg-amber-600 rounded-full">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-slate-700 hover:bg-stone-100 focus:outline-none" aria-label="Menu Utama">
+                        <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-stone-200 px-4 pt-2 pb-5 space-y-1 shadow-lg">
+            <button data-page="home" onclick="navigateTo('home'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">Home</button>
+            <button data-page="news" onclick="navigateTo('news'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">News</button>
+            <button data-page="product" onclick="navigateTo('product'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">Product</button>
+            <button data-page="about" onclick="navigateTo('about'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">About Us</button>
+            <button data-page="management" onclick="navigateTo('management'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">Management</button>
+            <button data-page="contact" onclick="navigateTo('contact'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left block px-4 py-3 rounded-xl text-base font-semibold">Contact Us</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- =========================================================
+             PAGE 1: HOME
+        ========================================================== -->
+        <section id="page-home" class="page-section fade-in">
+            <!-- Hero Section -->
+            <div class="relative overflow-hidden terrazzo-bg border-b border-stone-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-24">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-semibold">
+                                <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                                Ekosistem Sirkular: Dari Sampah Jadi Rupiah & Furnitur
+                            </div>
+                            <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-[52px] text-slate-900 leading-[1.15] tracking-tight">
+                                Mengubah Sampah Plastik Menjadi <span class="text-emerald-800 underline decoration-amber-500/60 decoration-4 underline-offset-4">Furnitur Bernilai Ekonomi</span>
+                            </h1>
+                            <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                                REPLAST menjembatani kepedulian lingkungan dan nilai ekonomi. Kami membeli serta menjemput sampah plastik langsung dari rumah Anda, lalu mengolahnya menjadi kursi, meja, dan rak berdesain modern yang kokoh serta tahan cuaca.
+                            </p>
+                            <div class="flex flex-wrap gap-4 pt-2">
+                                <a href="#waste-calculator" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-semibold shadow-lg shadow-emerald-900/20 transition transform hover:-translate-y-0.5">
+                                    <i data-lucide="banknote" class="w-5 h-5"></i>
+                                    Jual Sampah Plastik
+                                </a>
+                                <button onclick="navigateTo('product')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-stone-100 text-slate-900 font-semibold border border-stone-300 shadow-sm transition">
+                                    <i data-lucide="armchair" class="w-5 h-5 text-amber-600"></i>
+                                    Lihat Katalog Furnitur
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Illustration Card -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-stone-200/80 relative">
+                                <div class="absolute -top-4 -right-4 bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-2xl shadow-md transform rotate-3">
+                                    100% Plastik Daur Ulang
+                                </div>
+                                <!-- Custom SVG Artwork: Plastic Waste to Stylish Chair Transformation -->
+                                <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-emerald-50 via-stone-100 to-amber-50 flex items-center justify-center p-4 border border-stone-200/60 overflow-hidden">
+                                    <svg viewBox="0 0 400 280" class="w-full h-full">
+                                        <!-- Left: Plastic Bottles/Waste -->
+                                        <g transform="translate(30, 60)">
+                                            <rect x="10" y="30" width="44" height="90" rx="10" fill="#10b981" opacity="0.85"/>
+                                            <rect x="22" y="16" width="20" height="14" rx="3" fill="#065f46"/>
+                                            <rect x="10" y="55" width="44" height="22" fill="#ffffff" opacity="0.6"/>
+                                            
+                                            <rect x="64" y="50" width="38" height="70" rx="8" fill="#f59e0b" opacity="0.85"/>
+                                            <rect x="74" y="38" width="18" height="12" rx="3" fill="#b45309"/>
+                                            <text x="55" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Limbah HDPE/PP</text>
+                                        </g>
+
+                                        <!-- Center Arrow / Cycle -->
+                                        <g transform="translate(165, 105)">
+                                            <circle cx="30" cy="25" r="24" fill="#065f46"/>
+                                            <path d="M22 25h16m-6-6 6 6-6 6" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                            <text x="30" y="68" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">Olah & Cetak</text>
+                                        </g>
+
+                                        <!-- Right: Modern Terrazzo Recycled Chair -->
+                                        <g transform="translate(245, 35)">
+                                            <!-- Chair Backrest -->
+                                            <rect x="25" y="15" width="85" height="65" rx="14" fill="#e7e5e4" stroke="#475569" stroke-width="3"/>
+                                            <!-- Terrazzo speckles on backrest -->
+                                            <circle cx="45" cy="35" r="4" fill="#10b981"/>
+                                            <circle cx="70" cy="28" r="3" fill="#d97706"/>
+                                            <circle cx="90" cy="48" r="5" fill="#065f46"/>
+                                            <circle cx="55" cy="60" r="3.5" fill="#f59e0b"/>
+                                            <circle cx="82" cy="65" r="3" fill="#10b981"/>
+                                            <!-- Chair Seat -->
+                                            <rect x="18" y="88" width="100" height="22" rx="8" fill="#d6d3d1" stroke="#475569" stroke-width="3"/>
+                                            <circle cx="40" cy="99" r="3" fill="#065f46"/>
+                                            <circle cx="75" cy="99" r="3.5" fill="#d97706"/>
+                                            <circle cx="98" cy="99" r="3" fill="#10b981"/>
+                                            <!-- Chair Legs -->
+                                            <line x1="32" y1="110" x2="24" y2="170" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                                            <line x1="104" y1="110" x2="112" y2="170" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                                            <line x1="48" y1="110" x2="44" y2="160" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+                                            <line x1="88" y1="110" x2="92" y2="160" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+                                            <text x="68" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">Furnitur Estetik</text>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="mt-5 flex items-center justify-between text-sm">
+                                    <div>
+                                        <p class="font-bold text-slate-900">1 Kursi Terrazzo REPLAST</p>
+                                        <p class="text-slate-500">Menyelamatkan ± 14 kg sampah plastik</p>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs">Tahan 15+ Tahun</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Statistics Banner -->
+            <div class="bg-emerald-900 text-white py-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                        <div class="p-4 rounded-2xl bg-emerald-850/60 border border-emerald-700/50">
+                            <p class="font-display font-extrabold text-3xl sm:text-4xl text-amber-400">48.500+</p>
+                            <p class="text-xs sm:text-sm text-emerald-100 mt-1">Kg Sampah Plastik Didaur Ulang</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-emerald-850/60 border border-emerald-700/50">
+                            <p class="font-display font-extrabold text-3xl sm:text-4xl text-white">3.240+</p>
+                            <p class="text-xs sm:text-sm text-emerald-100 mt-1">Unit Furnitur Diproduksi</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-emerald-850/60 border border-emerald-700/50">
+                            <p class="font-display font-extrabold text-3xl sm:text-4xl text-amber-400">1.850+</p>
+                            <p class="text-xs sm:text-sm text-emerald-100 mt-1">Mitra Warga & Bank Sampah</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-emerald-850/60 border border-emerald-700/50">
+                            <p class="font-display font-extrabold text-3xl sm:text-4xl text-white">92 Ton</p>
+                            <p class="text-xs sm:text-sm text-emerald-100 mt-1">Emisi Karbon Berhasil Dicegah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Pilar Inovasi REPLAST -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Kreativitas & Inovasi</span>
+                    <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-slate-900 mt-2">5 Pilar Ekosistem Usaha REPLAST</h2>
+                    <p class="text-slate-600 mt-3 text-sm sm:text-base">Model bisnis sirkular terintegrasi yang menguntungkan masyarakat, lingkungan, dan konsumen furnitur.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Pillar 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-4">
+                            <i data-lucide="coins" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-slate-900">1. Waste-to-Cash</h3>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">Masyarakat mendapatkan imbalan uang tunai atau saldo digital langsung berdasarkan jenis, berat, dan kebersihan plastik yang disetorkan.</p>
+                    </div>
+                    <!-- Pillar 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+                            <i data-lucide="truck" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-slate-900">2. Waste Pickup</h3>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">Layanan penjemputan sampah plastik terjadwal langsung ke rumah tangga, kos-kosan, maupun kafe tanpa repot mengantar ke gudang.</p>
+                    </div>
+                    <!-- Pillar 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-4">
+                            <i data-lucide="sofa" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-slate-900">3. Recycled Furniture</h3>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">Mengolah cacahan plastik HDPE & PP menjadi papan lembaran padat bermotif terrazzo alami untuk kursi, meja, rak, dan bangku.</p>
+                    </div>
+                    <!-- Pillar 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+                            <i data-lucide="ruler" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-slate-900">4. Custom Design</h3>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">Menyediakan layanan desain, palet warna corak plastik, dan ukuran furnitur khusus sesuai kebutuhan interior kafe, kantor, atau rumah.</p>
+                    </div>
+                    <!-- Pillar 5 -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition md:col-span-2 lg:col-span-2">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-800 text-white flex items-center justify-center shrink-0">
+                                <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">Zero-Waste Guarantee</div>
+                                <h3 class="font-display font-bold text-lg text-slate-900">5. Buyback & Repair Program</h3>
+                                <p class="text-slate-600 text-sm mt-1 leading-relaxed">Konsumen dapat mengembalikan furnitur REPLAST lama yang rusak atau ingin diganti untuk diperbaiki maupun dicacah ulang menjadi furnitur baru dengan potongan harga tukar tambah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Waste-to-Cash Calculator -->
+            <div id="waste-calculator" class="bg-stone-100 border-y border-stone-200 py-16">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-3xl shadow-xl border border-stone-200 overflow-hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-12">
+                            <!-- Left Info -->
+                            <div class="lg:col-span-5 bg-emerald-900 text-white p-8 flex flex-col justify-between">
+                                <div>
+                                    <span class="inline-block px-3 py-1 rounded-full bg-emerald-800 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">Simulasi Waste-to-Cash</span>
+                                    <h3 class="font-display font-extrabold text-2xl sm:text-3xl leading-snug">Hitung Nilai Uang Sampah Plastikmu</h3>
+                                    <p class="text-emerald-100 text-sm mt-3 leading-relaxed">
+                                        Pilah sampah plastik di rumah berdasarkan jenisnya. Semakin bersih dan terpilah, semakin tinggi harga belinya!
+                                    </p>
+                                    <ul class="mt-6 space-y-2.5 text-xs sm:text-sm text-emerald-100">
+                                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i> Minimal penjemputan gratis: 5 kg</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i> Pembayaran tunai / transfer instan</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0"></i> Bonus +10% jika sudah dicuci bersih</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-8 pt-6 border-t border-emerald-800 text-xs text-emerald-200">
+                                    *Harga estimasi dapat menyesuaikan kondisi aktual saat penimbangan oleh kurir REPLAST.
+                                </div>
+                            </div>
+
+                            <!-- Right Calculator Form -->
+                            <div class="lg:col-span-7 p-8 space-y-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-800 mb-2">1. Pilih Jenis Sampah Plastik</label>
+                                    <select id="calc-type" onchange="calculateWaste()" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                        <option value="4500" data-name="HDPE Keras (Botol Sampo, Sabun, Jerigen)">HDPE Keras – Botol Sampo, Sabun, Jerigen (Rp 4.500/kg)</option>
+                                        <option value="4000" data-name="PP Bersih (Tutup Botol, Gelas Plastik, Wadah Makanan)">PP Bersih – Tutup Botol, Wadah Makanan (Rp 4.000/kg)</option>
+                                        <option value="3200" data-name="PET Bening (Botol Air Mineral Bersih)">PET Bening – Botol Air Mineral (Rp 3.200/kg)</option>
+                                        <option value="2200" data-name="Plastik Campur Belum Terpilah">Plastik Campur Belum Terpilah (Rp 2.200/kg)</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-800 mb-2">2. Estimasi Berat (Kg)</label>
+                                        <div class="relative">
+                                            <input type="number" id="calc-weight" value="8" min="1" max="500" oninput="calculateWaste()" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                            <span class="absolute right-4 top-3 text-sm font-semibold text-slate-400">Kg</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-800 mb-2">3. Kondisi Plastik</label>
+                                        <select id="calc-condition" onchange="calculateWaste()" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                            <option value="1.1">Sudah Dicuci & Kering (+10%)</option>
+                                            <option value="1.0">Standar / Kotor Ringan (Normal)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Result Box -->
+                                <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-800 uppercase tracking-wider">Estimasi Pendapatan Anda</p>
+                                        <p id="calc-result" class="font-display font-extrabold text-3xl text-emerald-950 mt-0.5">Rp 39.600</p>
+                                        <p id="calc-impact" class="text-xs text-emerald-700 mt-1">Setara bahan baku untuk ± 0.6 unit kursi REPLAST</p>
+                                    </div>
+                                    <button onclick="addPickupToActivity()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md transition shrink-0">
+                                        <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                                        Jadwalkan Pickup
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 2: NEWS
+        ========================================================== -->
+        <section id="page-news" class="page-section hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                    <div>
+                        <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Kabar & Edukasi Sirkular</span>
+                        <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1">Berita & Update REPLAST</h1>
+                        <p class="text-slate-600 mt-2 max-w-2xl">Ikuti perkembangan inovasi daur ulang plastik, tips pemilahan sampah rumah tangga, serta kolaborasi komunitas hijau bersama REPLAST.</p>
+                    </div>
+                    <!-- News Category Filter -->
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1" id="news-filters">
+                        <button onclick="filterNews('Semua')" class="news-filter-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-800 text-white transition">Semua</button>
+                        <button onclick="filterNews('Inovasi')" class="news-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Inovasi</button>
+                        <button onclick="filterNews('Komunitas')" class="news-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Komunitas</button>
+                        <button onclick="filterNews('Edukasi')" class="news-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Edukasi</button>
+                    </div>
+                </div>
+
+                <!-- News Grid -->
+                <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 3: PRODUCT
+        ========================================================== -->
+        <section id="page-product" class="page-section hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <!-- Header & Filter -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                    <div>
+                        <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Katalog Furnitur Daur Ulang</span>
+                        <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1">Koleksi Furnitur REPLAST</h1>
+                        <p class="text-slate-600 mt-2 max-w-2xl">Setiap produk dibuat dari 100% limbah plastik HDPE & PP pilihan. Tahan air, anti rayap, kokoh, dan memiliki corak alami yang unik di setiap unitnya.</p>
+                    </div>
+
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1" id="product-filters">
+                        <button onclick="filterProducts('Semua')" class="prod-filter-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-800 text-white transition">Semua</button>
+                        <button onclick="filterProducts('Kursi')" class="prod-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Kursi</button>
+                        <button onclick="filterProducts('Meja')" class="prod-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Meja</button>
+                        <button onclick="filterProducts('Rak & Bangku')" class="prod-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-stone-200 text-slate-700 hover:bg-stone-100 transition">Rak & Bangku</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Custom Design & Buyback Banner -->
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-emerald-900 text-white rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden">
+                        <div class="relative z-10">
+                            <span class="inline-block px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold mb-3">Custom Design Service</span>
+                            <h3 class="font-display font-extrabold text-2xl">Butuh Ukuran & Warna Khusus untuk Kafe atau Kantor?</h3>
+                            <p class="text-emerald-100 text-sm mt-2 leading-relaxed">Tim desainer produk REPLAST siap mewujudkan meja bar, set kursi kafe, maupun rak display sesuai identitas warna dan dimensi ruangan Anda.</p>
+                        </div>
+                        <div class="mt-6 relative z-10">
+                            <button onclick="goToContactWithTopic('Pesanan Furnitur Custom')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-emerald-950 font-bold text-sm hover:bg-stone-100 transition">
+                                Konsultasi Desain Custom <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-3xl p-8 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block px-3 py-1 rounded-full bg-amber-200 text-amber-900 text-xs font-bold mb-3">Buyback & Repair Program</span>
+                            <h3 class="font-display font-extrabold text-2xl text-slate-900">Jaminan Sirkular & Tukar Tambah Produk Lama</h3>
+                            <p class="text-slate-600 text-sm mt-2 leading-relaxed">Furnitur REPLAST Anda mengalami kerusakan atau ingin ganti model baru? Kembalikan kepada kami untuk layanan perbaikan atau tukar tambah dengan diskon hingga 25%.</p>
+                        </div>
+                        <div class="mt-6">
+                            <button onclick="goToContactWithTopic('Program Buyback / Perbaikan')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 transition">
+                                Ajukan Buyback / Servis <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 4: ABOUT US
+        ========================================================== -->
+        <section id="page-about" class="page-section hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16">
+                <!-- Story & Vision -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-6 space-y-5">
+                        <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Tentang REPLAST</span>
+                        <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 leading-tight">Menjawab Krisis Sampah Plastik Lewat Desain Furnitur Fungsional</h1>
+                        <p class="text-slate-600 leading-relaxed">
+                            Berawal dari keprihatinan terhadap menumpuknya limbah plastik rumah tangga yang sulit terurai, <strong>REPLAST</strong> hadir sebagai usaha kreatif berbasis ekonomi sirkular. Kami percaya bahwa sampah plastik bukanlah akhir dari siklus benda, melainkan bahan baku berharga jika diolah dengan teknologi dan desain yang tepat.
+                        </p>
+                        <p class="text-slate-600 leading-relaxed">
+                            Melalui sistem pembelian langsung dan layanan penjemputan (<em>Waste Pickup</em>), kami memberdayakan masyarakat untuk mendapatkan penghasilan tambahan sekaligus memasok bahan baku berkualitas bagi workshop furnitur kami.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="bg-emerald-900 text-white p-6 rounded-3xl">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center mb-4">
+                                <i data-lucide="eye" class="w-5 h-5 text-amber-400"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl">Visi Kami</h3>
+                            <p class="text-emerald-100 text-sm mt-2 leading-relaxed">Menjadi pelopor ekosistem furnitur daur ulang plastik terdepan di Indonesia yang menciptakan dampak ekologis dan ekonomi berkelanjutan bagi masyarakat.</p>
+                        </div>
+                        <div class="bg-white border border-stone-200 p-6 rounded-3xl shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+                                <i data-lucide="target" class="w-5 h-5 text-amber-700"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-slate-900">Misi Kami</h3>
+                            <ul class="text-slate-600 text-sm mt-2 space-y-2">
+                                <li>• Mempermudah warga menjual sampah plastik via sistem jemput.</li>
+                                <li>• Menghasilkan furnitur estetis berdaya tahan tinggi.</li>
+                                <li>• Menerapkan siklus <em>zero-waste</em> lewat program buyback.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Step Production Workflow -->
+                <div class="bg-white rounded-3xl border border-stone-200 p-8 sm:p-12 shadow-sm">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-emerald-700 font-bold text-sm uppercase tracking-wider">Dapur Produksi</span>
+                        <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 mt-1">Bagaimana Sampah Plastik Menjadi Kursi Kokoh?</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-5 rounded-2xl bg-sand-50 border border-stone-200 relative">
+                            <span class="font-display font-extrabold text-4xl text-emerald-200 absolute top-4 right-5">01</span>
+                            <div class="w-11 h-11 rounded-xl bg-emerald-800 text-white flex items-center justify-center mb-4">
+                                <i data-lucide="package-check" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-base text-slate-900">Pengumpulan & Penjemputan</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-2">Tim kurir menjemput sampah plastik dari warga/mitra dan menimbangnya secara transparan untuk dibayar tunai.</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-sand-50 border border-stone-200 relative">
+                            <span class="font-display font-extrabold text-4xl text-emerald-200 absolute top-4 right-5">02</span>
+                            <div class="w-11 h-11 rounded-xl bg-emerald-800 text-white flex items-center justify-center mb-4">
+                                <i data-lucide="scissors" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-base text-slate-900">Penyortiran & Pencacahan</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-2">Plastik dipilah berdasarkan kode polimer (HDPE & PP) dan warna, dicuci bersih, lalu dicacah menjadi serpihan kecil (<em>flakes</em>).</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-sand-50 border border-stone-200 relative">
+                            <span class="font-display font-extrabold text-4xl text-emerald-200 absolute top-4 right-5">03</span>
+                            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center mb-4">
+                                <i data-lucide="flame" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-base text-slate-900">Peleburan & Pencetakan</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-2">Cacahan plastik dipanaskan dengan suhu terkontrol dan dipres bertekanan tinggi ke dalam cetakan papan maupun komponen kursi.</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-sand-50 border border-stone-200 relative">
+                            <span class="font-display font-extrabold text-4xl text-emerald-200 absolute top-4 right-5">04</span>
+                            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center mb-4">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-base text-slate-900">Perakitan & Finishing</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-2">Lembaran papan plastik dipotong presisi dengan CNC, dihaluskan permukaannya, dirakit, dan siap dikirim ke konsumen.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Market & Advantages -->
+                <div>
+                    <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 text-center mb-8">Segmen Target Pasar REPLAST</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-stone-200 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mb-3">
+                                <i data-lucide="home" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-slate-900">Rumah Tangga</h4>
+                            <p class="text-xs text-slate-600 mt-2">Penyetor sampah plastik sekaligus pembeli kursi teras, bangku taman, dan rak penyimpanan tahan air.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-stone-200 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+                                <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-slate-900">Mahasiswa & Pemilik Kos</h4>
+                            <p class="text-xs text-slate-600 mt-2">Solusi meja belajar, rak buku modular, dan stool ringkas dengan harga terjangkau dan awet.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-stone-200 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mb-3">
+                                <i data-lucide="coffee" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-slate-900">Kafe & Restoran</h4>
+                            <p class="text-xs text-slate-600 mt-2">Furnitur berkarakter unik dengan corak terrazzo daur ulang yang memperkuat citra <em>eco-friendly</em> kafe.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-stone-200 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+                                <i data-lucide="building-2" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-slate-900">Perkantoran</h4>
+                            <p class="text-xs text-slate-600 mt-2">Pengadaan meja kerja kolaboratif dan furnitur ruang tunggu sebagai wujud nyata program ESG perusahaan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 5: MANAGEMENT
+        ========================================================== -->
+        <section id="page-management" class="page-section hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Kepemimpinan & Tim Pendiri</span>
+                    <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1">Struktur Manajemen REPLAST</h1>
+                    <p class="text-slate-600 mt-3">Digerakkan oleh tim multidisiplin yang memadukan manajemen rantai pasok limbah, teknik material polimer, dan desain industri berkelanjutan.</p>
+                </div>
+
+                <!-- Dynamic Management Container (Rendered Randomly on Load) -->
+                <div id="management-container"></div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 6: CONTACT US
+        ========================================================== -->
+        <section id="page-contact" class="page-section hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Hubungi Kami</span>
+                    <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1">Mulai Langkah Sirkular Bersama REPLAST</h1>
+                    <p class="text-slate-600 mt-2">Ingin menjadwalkan penjemputan sampah plastik, memesan furnitur custom, atau mengajukan program buyback? Kirimkan pesan Anda di bawah ini.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-7 bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-sm">
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-800 mb-1.5">Nama Lengkap *</label>
+                                    <input type="text" id="contact-name" required placeholder="Contoh: Budi Santoso" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-800 mb-1.5">Nomor WhatsApp *</label>
+                                    <input type="tel" id="contact-phone" required placeholder="0812-3456-7890" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-800 mb-1.5">Email</label>
+                                    <input type="email" id="contact-email" placeholder="nama@email.com" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-800 mb-1.5">Tujuan Layanan *</label>
+                                    <select id="contact-topic" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                        <option value="Penjemputan Sampah (Waste Pickup)">Penjemputan Sampah (Waste Pickup)</option>
+                                        <option value="Pesanan Furnitur Custom">Pesanan Furnitur Custom</option>
+                                        <option value="Program Buyback / Perbaikan">Program Buyback / Perbaikan</option>
+                                        <option value="Kemitraan Kafe / Kantor">Kemitraan Kafe / Kantor</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-slate-800 mb-1.5">Alamat Lengkap (Untuk Penjemputan / Pengiriman)</label>
+                                <input type="text" id="contact-address" placeholder="Jl. Z.A. Pagar Alam No. 45, Bandar Lampung" class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-slate-800 mb-1.5">Detail Pesan / Estimasi Berat Plastik / Ukuran Furnitur *</label>
+                                <textarea id="contact-message" rows="4" required placeholder="Tuliskan detail permintaan Anda di sini..." class="w-full rounded-xl border border-stone-300 bg-sand-50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                Kirim Permintaan Sekarang
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info & Map -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-emerald-900 text-white rounded-3xl p-8 space-y-5">
+                            <h3 class="font-display font-bold text-xl">Workshop & Pusat Daur Ulang</h3>
+                            <div class="space-y-4 text-sm text-emerald-100">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-semibold text-white">Alamat Workshop</p>
+                                        <p>Jl. Soekarno-Hatta Bypass KM 8, Kec. Rajabasa, Kota Bandar Lampung, Lampung 35144</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="clock" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-semibold text-white">Jam Operasional & Penimbangan</p>
+                                        <p>Senin – Sabtu: 08.00 – 17.00 WIB</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="phone" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-semibold text-white">WhatsApp Layanan Cepat</p>
+                                        <p class="mb-2">+62 812 7224 8098</p>
+                                        <a href="https://wa.me/6281272248098?text=Halo%20REPLAST,%20saya%20ingin%20bertanya%20tentang%20layanan%20daur%20ulang%20plastik%20dan%20furnitur." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition shadow-sm">
+                                            <i data-lucide="message-circle" class="w-4 h-4"></i> Chat WhatsApp Sekarang
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="mail" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-semibold text-white">Email Resmi</p>
+                                        <a href="mailto:REPLAST2026@gmail.com" class="hover:text-amber-300 underline decoration-emerald-600">REPLAST2026@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stylized Location Map Card -->
+                        <div class="bg-white rounded-3xl border border-stone-200 p-4 shadow-sm">
+                            <div class="rounded-2xl bg-emerald-50 border border-emerald-200/80 h-48 relative overflow-hidden flex items-center justify-center">
+                                <svg viewBox="0 0 400 180" class="w-full h-full">
+                                    <rect width="400" height="180" fill="#ecfdf5"/>
+                                    <path d="M0 40 L400 120" stroke="#d1fae5" stroke-width="14"/>
+                                    <path d="M120 0 L240 180" stroke="#d1fae5" stroke-width="12"/>
+                                    <path d="M0 140 L400 60" stroke="#ffffff" stroke-width="8"/>
+                                    <circle cx="205" cy="95" r="24" fill="#10b981" opacity="0.2"/>
+                                    <circle cx="205" cy="95" r="8" fill="#065f46"/>
+                                    <rect x="135" y="52" width="140" height="28" rx="8" fill="#065f46"/>
+                                    <text x="205" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Workshop REPLAST</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold">R</div>
+                        <span class="font-display font-extrabold text-xl text-white">REPLAST</span>
+                    </div>
+                    <p class="text-sm text-slate-400 max-w-md leading-relaxed">
+                        Mengubah sampah plastik menjadi furnitur bernilai ekonomi. Bersama membangun lingkungan yang lebih bersih dan ekonomi masyarakat yang lebih berdaya.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm uppercase tracking-wider mb-3">Navigasi</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><button onclick="navigateTo('home')" class="hover:text-emerald-400 transition">Home</button></li>
+                        <li><button onclick="navigateTo('news')" class="hover:text-emerald-400 transition">News</button></li>
+                        <li><button onclick="navigateTo('product')" class="hover:text-emerald-400 transition">Product</button></li>
+                        <li><button onclick="navigateTo('about')" class="hover:text-emerald-400 transition">About Us</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display font-bold text-white text-sm uppercase tracking-wider mb-3">Layanan</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><button onclick="navigateTo('management')" class="hover:text-emerald-400 transition">Management</button></li>
+                        <li><button onclick="navigateTo('contact')" class="hover:text-emerald-400 transition">Waste Pickup</button></li>
+                        <li><button onclick="navigateTo('product')" class="hover:text-emerald-400 transition">Custom Furniture</button></li>
+                        <li><button onclick="navigateTo('contact')" class="hover:text-emerald-400 transition">Buyback Program</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 REPLAST Indonesia. Hak Cipta Dilindungi.</p>
+                <p>Ekonomi Sirkular &bull; Waste-to-Cash &bull; Recycled Furniture</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         MODALS & DRAWERS
+    ========================================================== -->
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200 p-6 sm:p-8 relative">
+            <button onclick="closeProductModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-700 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="product-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- News Reader Modal -->
+    <div id="news-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-stone-200 p-6 sm:p-8 relative">
+            <button onclick="closeNewsModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-700">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <span id="modal-news-cat" class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">Kategori</span>
+            <p id="modal-news-date" class="text-xs text-slate-400 mt-2">Tanggal</p>
+            <h3 id="modal-news-title" class="font-display font-extrabold text-2xl text-slate-900 mt-1">Judul Berita</h3>
+            <div id="modal-news-content" class="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- Activity / Cart & Pickup Drawer -->
+    <div id="activity-drawer" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex justify-end">
+        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-stone-200 flex items-center justify-between">
+                <div>
+                    <h3 class="font-display font-extrabold text-lg text-slate-900">Daftar Aktivitas Anda</h3>
+                    <p class="text-xs text-slate-500">Pesanan Furnitur & Jadwal Penjemputan Sampah</p>
+                </div>
+                <button onclick="toggleDrawer()" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-700">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="drawer-items" class="flex-grow overflow-y-auto p-6 space-y-4">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="p-6 border-t border-stone-200 bg-sand-50 space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-600">Total Pembelian Furnitur:</span>
+                    <span id="drawer-total-buy" class="font-bold text-slate-900">Rp 0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-emerald-700">Estimasi Uang Jual Sampah:</span>
+                    <span id="drawer-total-sell" class="font-bold text-emerald-700">+ Rp 0</span>
+                </div>
+                <button onclick="checkoutActivity()" class="w-full py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md transition">
+                    Konfirmasi & Lanjutkan ke Form
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-700">
+            <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center text-slate-950 shrink-0">
+                <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <p id="toast-msg" class="text-sm font-medium">Berhasil ditambahkan!</p>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT LOGIC
+    ========================================================== -->
+    <script>
+        // --- DATA: MANAGEMENT TEAM (ACAK OTOMATIS) ---
+        const teamMembers = [
+            "Daffa Hastian Hamid",
+            "Kelvin Anggiat M. Parhusip",
+            "Muhammad Adib Ghofur",
+            "Adam Julyan",
+            "Muhammad Afifuddin Makruf"
+        ];
+
+        const managementRoles = [
+            {
+                role: "Chief Executive Officer (CEO)",
+                desc: "Merumuskan visi strategis perusahaan, kemitraan keberlanjutan (ESG), serta mengembangkan ekosistem sirkular Waste-to-Cash agar berdampak luas.",
+                badge: "bg-emerald-100 text-emerald-900",
+                avatarBg: "bg-emerald-900 text-amber-300"
+            },
+            {
+                role: "Chief Operating Officer (COO)",
+                desc: "Mengawasi operasional harian workshop, efisiensi penyortiran, peleburan termal, serta standar kontrol kualitas (QC) kekuatan furnitur.",
+                badge: "bg-amber-100 text-amber-800",
+                avatarBg: "bg-amber-600 text-white"
+            },
+            {
+                role: "Chief Financial Officer (CFO)",
+                desc: "Mengelola perencanaan keuangan, struktur harga beli sampah plastik dari warga, serta analisis profitabilitas penjualan produk dan layanan.",
+                badge: "bg-emerald-100 text-emerald-800",
+                avatarBg: "bg-emerald-800 text-white"
+            },
+            {
+                role: "Head of Production & R&D",
+                desc: "Memimpin inovasi teknik pencetakan polimer HDPE/PP, eksplorasi corak terrazzo alami baru, serta rekayasa desain furnitur custom.",
+                badge: "bg-amber-100 text-amber-800",
+                avatarBg: "bg-slate-800 text-emerald-400"
+            },
+            {
+                role: "Head of Marketing & Partnership",
+                desc: "Mengelola strategi pemasaran B2C/B2B, edukasi publik, armada Waste Pickup komunitas, serta program Buyback purna jual.",
+                badge: "bg-emerald-100 text-emerald-800",
+                avatarBg: "bg-teal-800 text-amber-300"
+            }
+        ];
+
+        function renderRandomManagement() {
+            const container = document.getElementById('management-container');
+            if (!container) return;
+
+            // Fisher-Yates Shuffle untuk mengacak urutan nama anggota kelompok
+            const shuffledNames = [...teamMembers];
+            for (let i = shuffledNames.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledNames[i], shuffledNames[j]] = [shuffledNames[j], shuffledNames[i]];
+            }
+
+            const assignedTeam = managementRoles.map((roleObj, index) => {
+                const name = shuffledNames[index];
+                const initials = name.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
+                return { ...roleObj, name, initials };
+            });
+
+            const ceo = assignedTeam[0];
+            const directors = assignedTeam.slice(1);
+
+            container.innerHTML = `
+                <!-- CEO Highlight Card -->
+                <div class="max-w-3xl mx-auto bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-md mb-10 flex flex-col sm:flex-row items-center gap-6">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl ${ceo.avatarBg} flex items-center justify-center shrink-0 border-4 border-emerald-100 shadow-inner">
+                        <span class="font-display font-extrabold text-3xl sm:text-4xl tracking-wider">${ceo.initials}</span>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <span class="inline-block px-3 py-1 rounded-full ${ceo.badge} text-xs font-bold">${ceo.role}</span>
+                        <h3 class="font-display font-extrabold text-2xl text-slate-900 mt-2">${ceo.name}</h3>
+                        <p class="text-slate-600 text-sm mt-2 leading-relaxed">${ceo.desc}</p>
+                    </div>
+                </div>
+
+                <!-- 4 Division Heads Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    ${directors.map(member => `
+                        <div class="bg-white rounded-2xl border border-stone-200 p-6 text-center shadow-sm hover:shadow-md transition flex flex-col items-center">
+                            <div class="w-20 h-20 rounded-2xl ${member.avatarBg} flex items-center justify-center mb-4 shadow-sm">
+                                <span class="font-display font-extrabold text-2xl tracking-wider">${member.initials}</span>
+                            </div>
+                            <span class="inline-block px-2.5 py-0.5 rounded-full ${member.badge} text-[11px] font-bold uppercase">${member.role}</span>
+                            <h4 class="font-display font-bold text-lg text-slate-900 mt-2">${member.name}</h4>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">${member.desc}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // --- DATA: NEWS ---
+        const newsData = [
+            {
+                id: 1,
+                category: 'Komunitas',
+                date: '18 November 2026',
+                title: 'Kolaborasi Bank Sampah Mahasiswa: 1,2 Ton Plastik Terkumpul dalam 2 Minggu',
+                excerpt: 'Program Waste-to-Cash menyasar area kos-kosan mahasiswa untuk mengubah botol kemasan menjadi furnitur ruang diskusi kampus.',
+                content: `<p>REPLAST baru saja menyelesaikan gerakan pengumpulan sampah plastik bertajuk <strong>"Kos Bersih, Dompet Terisi"</strong> bersama 12 komunitas mahasiswa dan pengelola rumah kos.</p>
+                <p>Selama dua minggu pelaksanaan, tim Waste Pickup REPLAST berhasil mengumpulkan lebih dari 1.200 kg plastik jenis HDPE dan PP yang sebelumnya berpotensi mencemari lingkungan. Seluruh sampah tersebut dibeli langsung menggunakan sistem penimbangan digital transparan.</p>
+                <p>Sebagian hasil olahan plastik tersebut kini telah dicetak menjadi 15 unit Bangku Komunal Terrazzo yang ditempatkan di area taman baca mahasiswa.</p>`,
+                badgeColor: 'bg-emerald-100 text-emerald-800'
+            },
+            {
+                id: 2,
+                category: 'Edukasi',
+                date: '10 November 2026',
+                title: 'Panduan Mudah Memilah Plastik HDPE & PP di Rumah Agar Nilai Jual Tinggi',
+                excerpt: 'Kenali kode segitiga nomor 2 dan nomor 5 pada kemasan plastik rumah tangga Anda untuk mendapatkan harga beli tertinggi di REPLAST.',
+                content: `<p>Tidak semua plastik memiliki karakteristik leleh yang sama. Untuk menghasilkan furnitur yang kokoh dan tahan beban berat, REPLAST memfokuskan bahan baku pada dua jenis polimer utama:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>HDPE (Kode #2):</strong> Biasanya ditemukan pada botol sampo, botol sabun cair, jerigen, dan galon air. Plastik ini sangat kuat dan kaku.</li>
+                    <li><strong>PP (Kode #5):</strong> Ditemukan pada tutup botol air mineral, wadah makanan siap saji, dan ember plastik.</li>
+                </ul>
+                <p>Tips: Bilas sisa sabun atau makanan lalu keringkan sebelum ditimbang oleh kurir REPLAST untuk mendapatkan bonus harga +10%!</p>`,
+                badgeColor: 'bg-amber-100 text-amber-800'
+            },
+            {
+                id: 3,
+                category: 'Inovasi',
+                date: '2 November 2026',
+                title: 'Peluncuran Seri Kafe "Eco-Marble": Meja Kopi Estetik dari 100% Tutup Botol',
+                excerpt: 'Menjawab kebutuhan interior kafe modern, REPLAST merilis lini meja kopi berpola marmer alami tanpa pewarna sintetis tambahan.',
+                content: `<p>Corak unik pada seri furnitur terbaru <strong>Eco-Marble</strong> sepenuhnya berasal dari perpaduan warna asli ribuan tutup botol plastik PP yang dilebur pada suhu presisi.</p>
+                <p>Setiap lembar papan meja memiliki pola abstrak yang berbeda satu sama lain, menjadikannya furnitur <em>limited-edition</em> secara alami. Permukaannya telah dilapisi pelindung UV sehingga aman digunakan untuk area kafe indoor maupun outdoor.</p>`,
+                badgeColor: 'bg-emerald-100 text-emerald-800'
+            }
+        ];
+
+        // --- DATA: PRODUCTS ---
+        const productsData = [
+            {
+                id: 'p1',
+                name: 'Kursi Teras Terrazzo Nusantara',
+                category: 'Kursi',
+                price: 485000,
+                plasticSaved: 14,
+                dimensions: '54 x 52 x 78 cm',
+                material: '100% Recycled HDPE & PP + Rangka Baja Powder-Coated',
+                desc: 'Kursi santai ergonomis dengan dudukan dan sandaran papan plastik daur ulang motif terrazzo putih-hijau. Tahan hujan, anti rayap, dan mudah dibersihkan.',
+                colors: ['#065f46', '#10b981', '#d97706'],
+                shape: 'chair'
+            },
+            {
+                id: 'p2',
+                name: 'Meja Kopi Kafe Minimalis',
+                category: 'Meja',
+                price: 750000,
+                plasticSaved: 22,
+                dimensions: 'Diameter 65 cm x Tinggi 72 cm',
+                material: '100% Tutup Botol PP Eco-Marble (Tebal Top 2,4 cm)',
+                desc: 'Meja bundar modern untuk ruang tamu atau kafe. Permukaan padat anti noda kopi, tahan gores ringan, dan corak marmer alami yang unik di tiap unit.',
+                colors: ['#b45309', '#f59e0b', '#065f46'],
+                shape: 'table'
+            },
+            {
+                id: 'p3',
+                name: 'Rak Buku Modular 3 Susun',
+                category: 'Rak & Bangku',
+                price: 620000,
+                plasticSaved: 19,
+                dimensions: '80 x 32 x 105 cm',
+                material: '100% Papan Lembaran HDPE Daur Ulang',
+                desc: 'Rak serbaguna ideal untuk kamar kos, rumah, maupun ruang kerja. Anti lembap, anti rayap, dan tidak melengkung meski menahan beban buku berat.',
+                colors: ['#047857', '#34d399', '#78350f'],
+                shape: 'shelf'
+            },
+            {
+                id: 'p4',
+                name: 'Bangku Taman Eco-Bench',
+                category: 'Rak & Bangku',
+                price: 890000,
+                plasticSaved: 28,
+                dimensions: '120 x 42 x 45 cm',
+                material: '100% High-Density Recycled Plastic (Kapasitas 250 kg)',
+                desc: 'Bangku outdoor kapasitas 2–3 orang dewasa. Cocok untuk teras rumah, taman perkantoran, area kampus, dan ruang tunggu publik.',
+                colors: ['#065f46', '#d97706', '#0284c7'],
+                shape: 'bench'
+            },
+            {
+                id: 'p5',
+                name: 'Stool Daur Ulang Confetti',
+                category: 'Kursi',
+                price: 265000,
+                plasticSaved: 8,
+                dimensions: '34 x 34 x 45 cm',
+                material: '100% Cacahan Tutup Botol Warna-Warni',
+                desc: 'Bangku ringkas multifungsi yang dapat ditumpuk. Terbuat dari cacahan tutup botol warna-warni yang ceria dan kokoh diduduki.',
+                colors: ['#d97706', '#10b981', '#e11d48'],
+                shape: 'stool'
+            },
+            {
+                id: 'p6',
+                name: 'Meja Kerja Custom Sirkular',
+                category: 'Meja',
+                price: 1150000,
+                plasticSaved: 34,
+                dimensions: '120 x 60 x 75 cm (Bisa Custom Ukuran)',
+                material: '100% Recycled HDPE Slate + Kaki Besi Hollow',
+                desc: 'Meja kerja dan belajar ukuran luas dengan ketebalan papan plastik 2,5 cm yang super kokoh dan tampilan profesional.',
+                colors: ['#1e293b', '#10b981', '#f59e0b'],
+                shape: 'desk'
+            }
+        ];
+
+        // --- STATE ---
+        let currentPage = 'home';
+        let activityItems = []; // { type: 'buy' | 'sell', title: string, detail: string, amount: number }
+
+        // --- NAVIGATION ---
+        function navigateTo(pageId) {
+            currentPage = pageId;
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.add('hidden'));
+            // Show target section
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            // Update desktop nav active styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.page === pageId) {
+                    btn.classList.add('bg-emerald-800', 'text-white');
+                    btn.classList.remove('text-slate-700', 'hover:bg-stone-100');
+                } else {
+                    btn.classList.remove('bg-emerald-800', 'text-white');
+                    btn.classList.add('text-slate-700', 'hover:bg-stone-100');
+                }
+            });
+
+            // Update mobile nav active styles
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                if (btn.dataset.page === pageId) {
+                    btn.classList.add('bg-emerald-50', 'text-emerald-900');
+                } else {
+                    btn.classList.remove('bg-emerald-50', 'text-emerald-900');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- WASTE CALCULATOR ---
+        function formatRupiah(num) {
+            return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+        }
+
+        function calculateWaste() {
+            const pricePerKg = parseFloat(document.getElementById('calc-type').value);
+            const weight = Math.max(0, parseFloat(document.getElementById('calc-weight').value) || 0);
+            const multiplier = parseFloat(document.getElementById('calc-condition').value);
+
+            const total = pricePerKg * weight * multiplier;
+            const chairEquivalent = (weight / 14).toFixed(1);
+
+            document.getElementById('calc-result').textContent = formatRupiah(total);
+            document.getElementById('calc-impact').textContent = `Setara bahan baku untuk ± ${chairEquivalent} unit kursi REPLAST`;
+        }
+
+        function addPickupToActivity() {
+            const selectEl = document.getElementById('calc-type');
+            const plasticName = selectEl.options[selectEl.selectedIndex].dataset.name;
+            const pricePerKg = parseFloat(selectEl.value);
+            const weight = Math.max(1, parseFloat(document.getElementById('calc-weight').value) || 1);
+            const multiplier = parseFloat(document.getElementById('calc-condition').value);
+            const total = Math.round(pricePerKg * weight * multiplier);
+
+            activityItems.push({
+                type: 'sell',
+                title: `Waste Pickup (${weight} kg)`,
+                detail: plasticName,
+                amount: total
+            });
+
+            updateActivityUI();
+            showToast(`Jadwal jemput ${weight} kg plastik ditambahkan!`);
+        }
+
+        // --- NEWS RENDERING & FILTER ---
+        function renderNews(filter = 'Semua') {
+            const grid = document.getElementById('news-grid');
+            const filtered = filter === 'Semua' ? newsData : newsData.filter(n => n.category === filter);
+
+            grid.innerHTML = filtered.map(item => `
+                <article class="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-gradient-to-br from-emerald-800 to-emerald-950 p-6 flex flex-col justify-between relative overflow-hidden">
+                            <span class="inline-block w-fit px-3 py-1 rounded-full text-xs font-bold ${item.badgeColor} relative z-10">${item.category}</span>
+                            <p class="text-emerald-200 text-xs relative z-10">${item.date}</p>
+                            <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-emerald-700/30"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display font-bold text-lg text-slate-900 leading-snug">${item.title}</h3>
+                            <p class="text-slate-600 text-sm mt-2.5 line-clamp-3 leading-relaxed">${item.excerpt}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button onclick="openNewsModal(${item.id})" class="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-800 hover:text-amber-600 transition">
+                            Baca Selengkapnya <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function filterNews(category) {
+            document.querySelectorAll('.news-filter-btn').forEach(btn => {
+                if (btn.textContent.trim() === category) {
+                    btn.classList.add('bg-emerald-800', 'text-white');
+                    btn.classList.remove('bg-white', 'border', 'border-stone-200', 'text-slate-700');
+                } else {
+                    btn.classList.remove('bg-emerald-800', 'text-white');
+                    btn.classList.add('bg-white', 'border', 'border-stone-200', 'text-slate-700');
+                }
+            });
+            renderNews(category);
+        }
+
+        function openNewsModal(id) {
+            const item = newsData.find(n => n.id === id);
+            if (!item) return;
+            document.getElementById('modal-news-cat').textContent = item.category;
+            document.getElementById('modal-news-date').textContent = item.date;
+            document.getElementById('modal-news-title').textContent = item.title;
+            document.getElementById('modal-news-content').innerHTML = item.content;
+            document.getElementById('news-modal').classList.remove('hidden');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('news-modal').classList.add('hidden');
+        }
+
+        // --- PRODUCTS RENDERING & FILTER ---
+        function getProductIllustration(shape, colors, uid = '0') {
+            const [c1, c2, c3] = colors;
+            const patId = `terrazzo-${shape}-${uid}`;
+            const patternDef = `
+                <defs>
+                    <pattern id="${patId}" width="28" height="28" patternUnits="userSpaceOnUse">
+                        <rect width="28" height="28" fill="#f5f5f4"/>
+                        <polygon points="4,5 10,3 8,10" fill="${c1}"/>
+                        <circle cx="20" cy="8" r="3.2" fill="${c2}"/>
+                        <polygon points="12,18 19,15 17,23 11,22" fill="${c3}"/>
+                        <circle cx="6" cy="22" r="2.2" fill="${c2}"/>
+                        <polygon points="22,20 26,22 24,26" fill="${c1}"/>
+                    </pattern>
+                    <linearGradient id="shadow-${uid}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#000000" stop-opacity="0.12"/>
+                        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            `;
+
+            if (shape === 'chair') {
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="158" rx="56" ry="9" fill="url(#shadow-${uid})"/>
+                    <!-- Back Legs -->
+                    <line x1="82" y1="70" x2="72" y2="152" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="158" y1="70" x2="168" y2="152" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Backrest -->
+                    <rect x="74" y="24" width="92" height="50" rx="12" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                    <!-- Seat -->
+                    <path d="M68 96 L172 96 L180 112 L60 112 Z" fill="url(#${patId})" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
+                    <!-- Front Legs -->
+                    <line x1="74" y1="112" x2="66" y2="156" stroke="#0f172a" stroke-width="6.5" stroke-linecap="round"/>
+                    <line x1="166" y1="112" x2="174" y2="156" stroke="#0f172a" stroke-width="6.5" stroke-linecap="round"/>
+                </svg>`;
+            } else if (shape === 'stool') {
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="158" rx="48" ry="8" fill="url(#shadow-${uid})"/>
+                    <!-- Legs -->
+                    <line x1="92" y1="68" x2="76" y2="154" stroke="#1e293b" stroke-width="6.5" stroke-linecap="round"/>
+                    <line x1="148" y1="68" x2="164" y2="154" stroke="#1e293b" stroke-width="6.5" stroke-linecap="round"/>
+                    <line x1="120" y1="68" x2="120" y2="150" stroke="#475569" stroke-width="5.5" stroke-linecap="round"/>
+                    <!-- Footrest ring -->
+                    <ellipse cx="120" cy="116" rx="34" ry="7" fill="none" stroke="#334155" stroke-width="4"/>
+                    <!-- Round Terrazzo Seat -->
+                    <ellipse cx="120" cy="60" rx="48" ry="16" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                    <path d="M72 60 v10 c0 9 21 16 48 16 s48 -7 48 -16 v-10" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                </svg>`;
+            } else if (shape === 'table') {
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="158" rx="64" ry="10" fill="url(#shadow-${uid})"/>
+                    <!-- Tripod/Pedestal Legs -->
+                    <line x1="120" y1="74" x2="120" y2="148" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="120" y1="138" x2="80" y2="156" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="120" y1="138" x2="160" y2="156" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Round Tabletop -->
+                    <ellipse cx="120" cy="62" rx="74" ry="22" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                    <path d="M46 62 v8 c0 12 33 22 74 22 s74 -10 74 -22 v-8" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                </svg>`;
+            } else if (shape === 'desk') {
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="158" rx="84" ry="9" fill="url(#shadow-${uid})"/>
+                    <!-- Desk Frame Legs -->
+                    <rect x="46" y="72" width="8" height="82" rx="3" fill="#1e293b"/>
+                    <rect x="186" y="72" width="8" height="82" rx="3" fill="#1e293b"/>
+                    <line x1="50" y1="92" x2="190" y2="92" stroke="#475569" stroke-width="4"/>
+                    <!-- Desk Top -->
+                    <path d="M36 56 L204 56 L212 72 L28 72 Z" fill="url(#${patId})" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
+                    <rect x="28" y="72" width="184" height="8" rx="2" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+                </svg>`;
+            } else if (shape === 'bench') {
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="158" rx="86" ry="9" fill="url(#shadow-${uid})"/>
+                    <!-- Side Steel Frame -->
+                    <path d="M44 55 L44 154 M196 55 L196 154 M38 104 L202 104" stroke="#1e293b" stroke-width="6.5" stroke-linecap="round"/>
+                    <!-- Backrest Slats -->
+                    <rect x="38" y="48" width="164" height="24" rx="6" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                    <!-- Seat Planks -->
+                    <rect x="34" y="96" width="172" height="18" rx="6" fill="url(#${patId})" stroke="#334155" stroke-width="2.5"/>
+                </svg>`;
+            } else {
+                // Modular 3-Tier Shelf
+                return `<svg viewBox="0 0 240 180" class="w-full h-full drop-shadow-sm">
+                    ${patternDef}
+                    <ellipse cx="120" cy="160" rx="66" ry="8" fill="url(#shadow-${uid})"/>
+                    <!-- Side Pillars -->
+                    <rect x="62" y="24" width="10" height="132" rx="4" fill="#1e293b"/>
+                    <rect x="168" y="24" width="10" height="132" rx="4" fill="#1e293b"/>
+                    <!-- 3 Terrazzo Shelves -->
+                    <rect x="56" y="34" width="128" height="14" rx="5" fill="url(#${patId})" stroke="#334155" stroke-width="2.2"/>
+                    <rect x="56" y="80" width="128" height="14" rx="5" fill="url(#${patId})" stroke="#334155" stroke-width="2.2"/>
+                    <rect x="56" y="126" width="128" height="14" rx="5" fill="url(#${patId})" stroke="#334155" stroke-width="2.2"/>
+                    <!-- Decorative Books on Shelf -->
+                    <rect x="76" y="54" width="10" height="26" rx="2" fill="${c1}"/>
+                    <rect x="88" y="58" width="9" height="22" rx="2" fill="${c2}"/>
+                    <rect x="132" y="102" width="24" height="24" rx="4" fill="${c3}"/>
+                </svg>`;
+            }
+        }
+
+        function renderProducts(filter = 'Semua') {
+            const grid = document.getElementById('product-grid');
+            const filtered = filter === 'Semua' ? productsData : productsData.filter(p => p.category === filter);
+
+            grid.innerHTML = filtered.map(prod => `
+                <div class="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col justify-between group">
+                    <div>
+                        <div class="h-56 bg-gradient-to-br from-emerald-50/70 via-sand-100 to-amber-50/70 p-6 relative flex items-center justify-center border-b border-stone-100">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 text-emerald-900 text-xs font-bold shadow-sm border border-emerald-100">
+                                ♻️ Hemat ${prod.plasticSaved} kg Plastik
+                            </span>
+                            <button onclick="openProductModal('${prod.id}')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/95 hover:bg-emerald-800 text-slate-700 hover:text-white flex items-center justify-center shadow-sm transition" title="Lihat Detail Produk">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                            <div onclick="openProductModal('${prod.id}')" class="w-52 h-40 cursor-pointer transform group-hover:scale-105 transition duration-300">
+                                ${getProductIllustration(prod.shape, prod.colors, prod.id)}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">${prod.category}</span>
+                            <h3 onclick="openProductModal('${prod.id}')" class="font-display font-bold text-xl text-slate-900 mt-1 cursor-pointer hover:text-emerald-800 transition">${prod.name}</h3>
+                            <p class="text-slate-600 text-sm mt-2 leading-relaxed">${prod.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-3 flex items-center justify-between border-t border-stone-100 gap-2">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Harga</span>
+                            <span class="font-display font-extrabold text-lg text-emerald-900">${formatRupiah(prod.price)}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="openProductModal('${prod.id}')" class="px-3 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-700 font-semibold text-xs transition">
+                                Detail
+                            </button>
+                            <button onclick="addProductToActivity('${prod.id}')" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-sm transition">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Keranjang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function openProductModal(prodId) {
+            const prod = productsData.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const body = document.getElementById('product-modal-body');
+            body.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl p-6 border border-stone-200 flex items-center justify-center h-64">
+                        <div class="w-full h-full">
+                            ${getProductIllustration(prod.shape, prod.colors, prod.id + '-modal')}
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">${prod.category}</span>
+                        <h3 class="font-display font-extrabold text-2xl text-slate-900 leading-tight">${prod.name}</h3>
+                        <p class="font-display font-extrabold text-2xl text-emerald-800">${formatRupiah(prod.price)}</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">${prod.desc}</p>
+                        <div class="p-3.5 rounded-xl bg-sand-50 border border-stone-200 space-y-1.5 text-xs">
+                            <p><strong class="text-slate-800">Dimensi:</strong> ${prod.dimensions}</p>
+                            <p><strong class="text-slate-800">Material:</strong> ${prod.material}</p>
+                            <p class="text-emerald-700 font-semibold">♻️ Menyelamatkan ${prod.plasticSaved} kg sampah plastik dari TPA</p>
+                        </div>
+                        <button onclick="addProductToActivity('${prod.id}'); closeProductModal();" class="w-full py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-cart" class="w-4 h-4"></i> Tambah ke Keranjang
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.prod-filter-btn').forEach(btn => {
+                if (btn.textContent.trim() === category) {
+                    btn.classList.add('bg-emerald-800', 'text-white');
+                    btn.classList.remove('bg-white', 'border', 'border-stone-200', 'text-slate-700');
+                } else {
+                    btn.classList.remove('bg-emerald-800', 'text-white');
+                    btn.classList.add('bg-white', 'border', 'border-stone-200', 'text-slate-700');
+                }
+            });
+            renderProducts(category);
+        }
+
+        function addProductToActivity(prodId) {
+            const prod = productsData.find(p => p.id === prodId);
+            if (!prod) return;
+
+            activityItems.push({
+                type: 'buy',
+                title: prod.name,
+                detail: `Kategori: ${prod.category} (Hemat ${prod.plasticSaved} kg plastik)`,
+                amount: prod.price
+            });
+
+            updateActivityUI();
+            showToast(`${prod.name} masuk ke daftar pesanan!`);
+        }
+
+        // --- DRAWER / CART MANAGEMENT ---
+        function toggleDrawer() {
+            const drawer = document.getElementById('activity-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function removeActivityItem(index) {
+            activityItems.splice(index, 1);
+            updateActivityUI();
+        }
+
+        function updateActivityUI() {
+            document.getElementById('cart-badge').textContent = activityItems.length;
+            const container = document.getElementById('drawer-items');
+
+            if (activityItems.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+                        <p class="text-sm font-medium">Belum ada pesanan furnitur atau jadwal penjemputan sampah.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = activityItems.map((item, idx) => `
+                    <div class="p-4 rounded-2xl border ${item.type === 'sell' ? 'bg-emerald-50/70 border-emerald-200' : 'bg-white border-stone-200'} flex justify-between items-start gap-3">
+                        <div>
+                            <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.type === 'sell' ? 'bg-emerald-200 text-emerald-900' : 'bg-amber-100 text-amber-800'}">
+                                ${item.type === 'sell' ? 'Jual Sampah' : 'Beli Furnitur'}
+                            </span>
+                            <h4 class="font-bold text-sm text-slate-900 mt-1">${item.title}</h4>
+                            <p class="text-xs text-slate-500 mt-0.5">${item.detail}</p>
+                            <p class="text-sm font-extrabold mt-1.5 ${item.type === 'sell' ? 'text-emerald-700' : 'text-slate-900'}">
+                                ${item.type === 'sell' ? '+ ' : ''}${formatRupiah(item.amount)}
+                            </p>
+                        </div>
+                        <button onclick="removeActivityItem(${idx})" class="text-slate-400 hover:text-red-600 p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const totalBuy = activityItems.filter(i => i.type === 'buy').reduce((sum, i) => sum + i.amount, 0);
+            const totalSell = activityItems.filter(i => i.type === 'sell').reduce((sum, i) => sum + i.amount, 0);
+
+            document.getElementById('drawer-total-buy').textContent = formatRupiah(totalBuy);
+            document.getElementById('drawer-total-sell').textContent = '+ ' + formatRupiah(totalSell);
+            lucide.createIcons();
+        }
+
+        function checkoutActivity() {
+            if (activityItems.length === 0) {
+                showToast('Daftar aktivitas masih kosong.');
+                return;
+            }
+            const summaryText = activityItems.map((item, i) => `${i + 1}. [${item.type === 'sell' ? 'JUAL SAMPAH' : 'BELI FURNITUR'}] ${item.title} - ${formatRupiah(item.amount)}`).join('\n');
+            toggleDrawer();
+            navigateTo('contact');
+            document.getElementById('contact-message').value = `Halo REPLAST, saya ingin memproses daftar aktivitas berikut:\n\n${summaryText}`;
+            showToast('Detail pesanan disalin ke formulir kontak!');
+        }
+
+        // --- CONTACT FORM ---
+        function goToContactWithTopic(topic) {
+            navigateTo('contact');
+            document.getElementById('contact-topic').value = topic;
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const topic = document.getElementById('contact-topic').value;
+            showToast(`Terima kasih ${name}! Permintaan "${topic}" telah kami terima.`);
+            document.getElementById('contact-form').reset();
+        }
+
+        // --- TOAST ---
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            navigateTo('home');
+            calculateWaste();
+            renderNews('Semua');
+            renderProducts('Semua');
+            renderRandomManagement();
+            updateActivityUI();
+        });
+    </script>
+</body>
+</html>
